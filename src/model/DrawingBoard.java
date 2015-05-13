@@ -33,6 +33,7 @@ public class DrawingBoard extends JComponent{
 	private Point drawEnd;
 	private Graphics2D graphicSettings;
 	private int currentAction=1;
+	private float transparencyVal = 1.0f;
 	private DrawingFunctions myFunctions = new DrawingFunctions();
 	public DrawingBoard(){
 		
@@ -160,6 +161,8 @@ public class DrawingBoard extends JComponent{
 	public void setCurrentAction(int currentAction) {
 		this.currentAction = currentAction;
 	}
+	
+	
 
 	public void addMyMouseActivity(MouseAdapter mouse){
 		this.addMouseListener(mouse);

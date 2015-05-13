@@ -8,6 +8,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.text.DecimalFormat;
+
+import javax.swing.JColorChooser;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import model.DrawingBoard;
 import model.DrawingFunctions;
@@ -21,8 +26,17 @@ public class Controller {
 	private Color strokeColor = Color.BLACK;
 	private Color fillColor = Color.BLACK;
 	private float transparentVal = 1.0f;
+	private DecimalFormat dec = new DecimalFormat("#.##");
 	public Controller(){
 
+		viewDrawB.addMyChangeListener(new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				if (arg0.getSource()==viewDrawB.getTransparencySlider()){
+					viewDrawB.setTransparencyLabel("Transparent: "+dec.format(viewDrawB.getTransparencySlider().getValue()*.01));
+				}
+			}
+		});
 		viewDrawB.addButtonActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -30,35 +44,25 @@ public class Controller {
 						drawB.setCurrentAction(1);
 						//System.out.println("CRTACC="+currentAction);
 				}
-			}
-		});
-		viewDrawB.addButtonActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
 				if (e.getSource()==viewDrawB.getBtnLine()){
 					drawB.setCurrentAction(2);
 				//System.out.println("CRTACC="+currentAction);
 				}
-			}
-		});
-		viewDrawB.addButtonActionListener(new ActionListener() {			
-			@Override
-			public void actionPerformed(ActionEvent e) {
 				if (e.getSource()==viewDrawB.getBtnEllipse()){
 					drawB.setCurrentAction(3);
 				}
-			}
-		});
-		viewDrawB.addButtonActionListener(new ActionListener() {			
-			@Override
-			public void actionPerformed(ActionEvent e) {
 				if (e.getSource()==viewDrawB.getBtnRectangle()){
 					drawB.setCurrentAction(4);
 				}
+				if(e.getSource()==viewDrawB.getBtnColor()){
+						strokeColor = JColorChooser.showDialog(null, "Pick a Stroke", Color.BLACK);
+				}
+				if(e.getSource()==viewDrawB.getBtnFill()){
+					fillColor = JColorChooser.showDialog(null, "Pick a Fill", Color.BLACK);
+				}
 			}
 		});
-		
-		
+
 		DrawingFunctions myFunctions = new DrawingFunctions();
 		
 		drawB.addMyMouseActivity(new MouseAdapter() {

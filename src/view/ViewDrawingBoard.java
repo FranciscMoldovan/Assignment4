@@ -11,11 +11,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.border.Border;
+import javax.swing.event.ChangeListener;
 
 import model.DrawingBoard;
-import javax.swing.JLabel;
 import javax.swing.Icon;
 
 public class ViewDrawingBoard extends JFrame{
@@ -32,13 +34,21 @@ public class ViewDrawingBoard extends JFrame{
 	private JButton btnEllipse;
 	private JButton btnRectangle;
 	private JButton btnBrush;
+	private JButton btnColor;
 	
 	private ImageIcon iconLine;
 	private ImageIcon iconEllipse;
 	private ImageIcon iconRectangle;
 	private ImageIcon iconBrush;
+	private ImageIcon iconColor;
+	private ImageIcon iconFill;
+	
+	private JLabel transparencyLabel; 
+	private JSlider transparencySlider;
 	
 	private Box theBox; 
+	private JButton btnFill;
+	
 	
 	
 	
@@ -70,7 +80,12 @@ public class ViewDrawingBoard extends JFrame{
 		 iconEllipse = new ImageIcon("ellipse.png");
 		 iconRectangle = new ImageIcon("rectangle.png");
 		 iconBrush = new ImageIcon("brush.png");
-		
+		 iconColor = new ImageIcon("color.png");
+		 iconFill = new ImageIcon("fill.png");
+		 
+		transparencyLabel=new JLabel("Transparent: 1");
+		transparencySlider=new JSlider(1,99,99);
+		 
 		btnLine = new JButton(iconLine);
 		btnLine.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -88,6 +103,9 @@ public class ViewDrawingBoard extends JFrame{
 		btnRectangle.setBounds(442, 492, 70, 70);
 		//contentPane.add(btnRectangle);
 		
+		btnColor = new JButton(iconColor);
+		
+		
 		btnBrush = new JButton(iconBrush);
 		getContentPane().add(myDrawingBoard, BorderLayout.CENTER);
 		
@@ -99,6 +117,12 @@ public class ViewDrawingBoard extends JFrame{
 		theBox.add(btnEllipse);
 		theBox.add(btnRectangle);
 		theBox.add(btnBrush);
+		theBox.add(btnColor);
+		
+		btnFill = new JButton(iconFill);
+		theBox.add(btnFill);
+		theBox.add(transparencyLabel);
+		theBox.add(transparencySlider);
 		bottomPanel.add(theBox);
 		
 		compound = BorderFactory.createCompoundBorder(
@@ -109,6 +133,8 @@ public class ViewDrawingBoard extends JFrame{
 //		theBox.setSize(100,100);
 //		bottomPanel.setSize(1000,1000);
 		getContentPane().add(bottomPanel, BorderLayout.SOUTH);
+		
+		
 		
 		
 		
@@ -137,11 +163,49 @@ public class ViewDrawingBoard extends JFrame{
 	public void setBtnBrush(JButton btnBrush) {
 		this.btnBrush = btnBrush;
 	}
+	
+	
+	
+	public JLabel getTransparencyLabel() {
+		return transparencyLabel;
+	}
+	public void setTransparencyLabel(String text) {
+		this.transparencyLabel.setText(text);
+	}
+	public JSlider getTransparencySlider() {
+		return transparencySlider;
+	}
+	public void setTransparencySlider(JSlider transparencySlider) {
+		this.transparencySlider = transparencySlider;
+	}
+	
+	
+	
+	
+	
+	public JButton getBtnFill() {
+		return btnFill;
+	}
+	public void setBtnFill(JButton btnFill) {
+		this.btnFill = btnFill;
+	}
+	public JButton getBtnColor() {
+		return btnColor;
+	}
+	public void setBtnColor(JButton btnColor) {
+		this.btnColor = btnColor;
+	}
+	public void addMyChangeListener(ChangeListener listener){
+		transparencySlider.addChangeListener(listener);
+	}
+	
 	public void addButtonActionListener(ActionListener listener){
 		btnLine.addActionListener(listener);
 		btnEllipse.addActionListener(listener);
 		btnRectangle.addActionListener(listener);
 		btnBrush.addActionListener(listener);
+		btnColor.addActionListener(listener);
+		btnFill.addActionListener(listener);
 	}
 }
 
