@@ -48,22 +48,34 @@ public class DrawingBoard extends JComponent{
          graphicSettings.setStroke(new BasicStroke(4));
          
         //Iterators created to cycle through stroked and fills
-         Iterator<Color>strokeCounter=shapeStroke.iterator();
-         Iterator<Color>fillCounter=shapeFill.iterator();
+//         Iterator<Color>strokeCounter=shapeStroke.iterator();
+//         Iterator<Color>fillCounter=shapeFill.iterator();
          
         //Iterator for transparency
-         Iterator<Float>transCounter=transPercent.iterator();
-         for (Shape s: shapes) {
-        	 //Sets the shapes transparency value
+//         Iterator<Float>transCounter=transPercent.iterator();
+//         for (Shape s: shapes) {
+//        	 //Sets the shapes transparency value
+//        	 graphicSettings.setComposite(AlphaComposite.getInstance(
+//                        AlphaComposite.SRC_OVER, transCounter.next()));
+//        	// Grabs the next stroke from the color arraylist
+//         	graphicSettings.setPaint(strokeCounter.next()); 
+//         	graphicSettings.draw(s);
+//            // Grabs the next fill from the color arraylist
+//        	graphicSettings.setPaint(fillCounter.next()); 	
+//        	graphicSettings.fill(s);
+//        }
+         
+         for (int i = 0; i < shapes.size(); i++) {
+        	//Sets the shapes transparency value
         	 graphicSettings.setComposite(AlphaComposite.getInstance(
-                        AlphaComposite.SRC_OVER, transCounter.next()));
+                        AlphaComposite.SRC_OVER, transPercent.get(i)));
         	// Grabs the next stroke from the color arraylist
-         	graphicSettings.setPaint(strokeCounter.next()); 
-         	graphicSettings.draw(s);
+         	graphicSettings.setPaint(shapeStroke.get(i)); 
+         	graphicSettings.draw(shapes.get(i));
             // Grabs the next fill from the color arraylist
-        	graphicSettings.setPaint(fillCounter.next()); 	
-        	graphicSettings.fill(s);
-        }
+        	graphicSettings.setPaint(shapeFill.get(i)); 	
+        	graphicSettings.fill(shapes.get(i));
+		}
          
         //Guide shape used for drawing
         if (drawStart != null && drawEnd != null){

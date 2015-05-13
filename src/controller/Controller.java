@@ -70,16 +70,20 @@ public class Controller {
 				if(e.getSource()==viewDrawB.getBtnUndo()){
 					if (drawB.getShapes().size()>1 && 
 							drawB.getShapeFill().size()>1 && 
-								drawB.getShapeStroke().size()>1  )
+								drawB.getShapeStroke().size()>1 &&
+									drawB.getTransPercent().size()>1 
+								)
 					{
 						drawB.getShapes().remove(drawB.getShapes().size()-1);
-						drawB.getShapeFill().remove(drawB.getShapes().size()-1);
-						drawB.getShapeStroke().remove(drawB.getShapes().size()-1);
+						drawB.getShapeFill().remove(drawB.getShapeFill().size()-1);
+						drawB.getShapeStroke().remove(drawB.getShapeStroke().size()-1);
+						drawB.getTransPercent().remove(drawB.getTransPercent().size()-1);
 					} else 
 					{
 						drawB.getShapes().clear();
 						drawB.getShapeFill().clear();
 						drawB.getShapeStroke().clear();
+						drawB.getTransPercent().clear();	
 					}
 					drawB.repaint();
 				}
