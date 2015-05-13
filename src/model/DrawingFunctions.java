@@ -1,8 +1,16 @@
 package model;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class DrawingFunctions implements DrawingFunctionsImpl{
 
@@ -30,4 +38,43 @@ public class DrawingFunctions implements DrawingFunctionsImpl{
              int height = Math.abs(y1 - y2);
              return new Rectangle2D.Float(x, y, width, height);
      }
+     public void saveImage(Graphics2D g2, DrawingBoard drawB) { 
+		 try {
+		        BufferedImage image = new BufferedImage(drawB.getWidth(),
+		                drawB.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+		        Graphics g = image.getGraphics();
+		        drawB.printAll(g);
+		        g.dispose();
+		        ImageIO.write(image, "png", new File("saves/img.png"));
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+    }
+     public void loadImage(Graphics2D g2, DrawingBoard drawB) { 
+  		 try {
+  		        BufferedImage image = new BufferedImage(drawB.getWidth(),
+  		                drawB.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+  		        Graphics g = image.getGraphics();
+  		        drawB.printAll(g);
+  		        g.dispose();
+  		        ImageIO.write(image, "png", new File("saves/img.png"));
+  		    } catch (Exception e) {
+  		        e.printStackTrace();
+  		    }
+      }
+     
+  
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

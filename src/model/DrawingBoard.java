@@ -5,13 +5,14 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Shape;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.swing.JComponent;
 
@@ -28,13 +29,14 @@ public class DrawingBoard extends JComponent{
 	private ArrayList<Float> transPercent = new ArrayList<Float>();
 	private Point drawStart; 
 	private Point drawEnd;
+	private boolean load = false;
 	private Graphics2D graphicSettings;
 	private int currentAction=1;
 	@SuppressWarnings("unused")
 	private float transparencyVal = 1.0f;
 	private DrawingFunctions myFunctions = new DrawingFunctions();
 	public DrawingBoard(){
-		
+	
 	}
 	
 	public void paint(Graphics g){
@@ -44,26 +46,11 @@ public class DrawingBoard extends JComponent{
 		graphicSettings.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-		// Defines the line width of the stroke
-         graphicSettings.setStroke(new BasicStroke(4));
+
+         graphicSettings.setStroke(new BasicStroke(4));  
          
-        //Iterators created to cycle through stroked and fills
-//         Iterator<Color>strokeCounter=shapeStroke.iterator();
-//         Iterator<Color>fillCounter=shapeFill.iterator();
-         
-        //Iterator for transparency
-//         Iterator<Float>transCounter=transPercent.iterator();
-//         for (Shape s: shapes) {
-//        	 //Sets the shapes transparency value
-//        	 graphicSettings.setComposite(AlphaComposite.getInstance(
-//                        AlphaComposite.SRC_OVER, transCounter.next()));
-//        	// Grabs the next stroke from the color arraylist
-//         	graphicSettings.setPaint(strokeCounter.next()); 
-//         	graphicSettings.draw(s);
-//            // Grabs the next fill from the color arraylist
-//        	graphicSettings.setPaint(fillCounter.next()); 	
-//        	graphicSettings.fill(s);
-//        }
+//         Image img1 = Toolkit.getDefaultToolkit().getImage("saves/img.png");
+//	        graphicSettings.drawImage(img1, 0, 0, this);
          
          for (int i = 0; i < shapes.size(); i++) {
         	//Sets the shapes transparency value
@@ -76,6 +63,27 @@ public class DrawingBoard extends JComponent{
         	graphicSettings.setPaint(shapeFill.get(i)); 	
         	graphicSettings.fill(shapes.get(i));
 		}
+         
+        if (load)
+        {
+	     	Image img1 = Toolkit.getDefaultToolkit().getImage("saves/img.png");
+	        graphicSettings.drawImage(img1, 0, 0, this);
+	        
+	        
+	        graphicSettings.setStroke(new BasicStroke(4));       
+	         for (int i = 0; i < shapes.size(); i++) {
+	        	//Sets the shapes transparency value
+	        	 graphicSettings.setComposite(AlphaComposite.getInstance(
+	                        AlphaComposite.SRC_OVER, transPercent.get(i)));
+	        	// Grabs the next stroke from the color arraylist
+	         	graphicSettings.setPaint(shapeStroke.get(i)); 
+	         	graphicSettings.draw(shapes.get(i));
+	            // Grabs the next fill from the color arraylist
+	        	graphicSettings.setPaint(shapeFill.get(i)); 	
+	        	graphicSettings.fill(shapes.get(i));
+			}
+        }
+         
          
         //Guide shape used for drawing
         if (drawStart != null && drawEnd != null){
@@ -104,7 +112,7 @@ public class DrawingBoard extends JComponent{
         	
         	
         
-        	
+        	 
         }
 	}
 	
@@ -173,6 +181,23 @@ public class DrawingBoard extends JComponent{
 	}
 	
 	
+	
+
+	public boolean isLoad() {
+		return load;
+	}
+
+	public void setLoad(boolean load) {
+		this.load = load;
+	}
+
+	public Graphics2D getGraphicSettings() {
+		return graphicSettings;
+	}
+
+	public void setGraphicSettings(Graphics2D graphicSettings) {
+		this.graphicSettings = graphicSettings;
+	}
 
 	public void addMyMouseActivity(MouseAdapter mouse){
 		this.addMouseListener(mouse);

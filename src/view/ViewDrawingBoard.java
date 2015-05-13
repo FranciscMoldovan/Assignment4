@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,6 +19,8 @@ import javax.swing.border.Border;
 import javax.swing.event.ChangeListener;
 
 import model.DrawingBoard;
+
+import javax.swing.Icon;
 
 public class ViewDrawingBoard extends JFrame{
 	
@@ -43,6 +46,8 @@ public class ViewDrawingBoard extends JFrame{
 	private ImageIcon iconFill;
 	private ImageIcon iconRefresh;
 	private ImageIcon iconUndo;
+	private ImageIcon iconSave;
+	private ImageIcon iconLoad;
 	
 	private JLabel transparencyLabel; 
 	private JSlider transparencySlider;
@@ -51,6 +56,8 @@ public class ViewDrawingBoard extends JFrame{
 	private JButton btnFill;
 	private JButton btnRefresh;
 	private JButton btnUndo;
+	private JButton btnSave;
+	private JButton btnLoad;
 	
 	
 	
@@ -67,9 +74,9 @@ public class ViewDrawingBoard extends JFrame{
 		((JComponent) this.getContentPane()).setBorder(compound);
 		
 		
-		setTitle("Paint");
+		setTitle("Francisc Paint");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(70, 70, 1200, 700);
+		setBounds(70, 70, 1400, 700);
 		setResizable(false);
 		
 		 bottomPanel=new JPanel();		
@@ -81,6 +88,8 @@ public class ViewDrawingBoard extends JFrame{
 		 iconFill = new ImageIcon("fill.png");
 		 iconRefresh = new ImageIcon("refresh.png");
 		 iconUndo = new ImageIcon("undo.png");
+		 iconSave = new ImageIcon("save.png");
+		 iconLoad = new ImageIcon("load.png");
 		 
 		transparencyLabel=new JLabel("Transparent: 1");
 		transparencySlider=new JSlider(1,99,99);
@@ -126,6 +135,12 @@ public class ViewDrawingBoard extends JFrame{
 		
 		btnFill = new JButton(iconFill);
 		theBox.add(btnFill);
+		
+		btnSave = new JButton(iconSave);
+		theBox.add(btnSave);
+		
+		btnLoad = new JButton(iconLoad);
+		theBox.add(btnLoad);
 		theBox.add(transparencyLabel);
 		theBox.add(transparencySlider);
 		bottomPanel.add(theBox);
@@ -171,6 +186,12 @@ public class ViewDrawingBoard extends JFrame{
 	
 	
 	
+	public JButton getBtnLoad() {
+		return btnLoad;
+	}
+	public void setBtnLoad(JButton btnLoad) {
+		this.btnLoad = btnLoad;
+	}
 	public JLabel getTransparencyLabel() {
 		return transparencyLabel;
 	}
@@ -222,6 +243,13 @@ public class ViewDrawingBoard extends JFrame{
 		transparencySlider.addChangeListener(listener);
 	}
 	
+	
+	public JButton getBtnSave() {
+		return btnSave;
+	}
+	public void setBtnSave(JButton btnSave) {
+		this.btnSave = btnSave;
+	}
 	public void addButtonActionListener(ActionListener listener){
 		btnLine.addActionListener(listener);
 		btnEllipse.addActionListener(listener);
@@ -231,6 +259,8 @@ public class ViewDrawingBoard extends JFrame{
 		btnFill.addActionListener(listener);
 		btnRefresh.addActionListener(listener);
 		btnUndo.addActionListener(listener);
+		btnSave.addActionListener(listener);
+		btnLoad.addActionListener(listener);
 	}
 }
 

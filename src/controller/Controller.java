@@ -29,6 +29,8 @@ public class Controller {
 	private DecimalFormat dec = new DecimalFormat("#.##");
 	public Controller(){
 
+		DrawingFunctions myFunctions = new DrawingFunctions();
+		
 		viewDrawB.addMyChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
@@ -65,6 +67,7 @@ public class Controller {
 					drawB.getShapeStroke().clear();
 					drawB.getTransPercent().clear();
 					drawB.repaint();
+					drawB.setLoad(false);
 					
 				}
 				if(e.getSource()==viewDrawB.getBtnUndo()){
@@ -87,10 +90,19 @@ public class Controller {
 					}
 					drawB.repaint();
 				}
+				if(e.getSource()==viewDrawB.getBtnSave()){
+					myFunctions.saveImage(drawB.getGraphicSettings(), drawB);
+					}
+				if(e.getSource()==viewDrawB.getBtnLoad()){
+					 drawB.setLoad(true);
+					 drawB.repaint();
+					// drawB.setLoad(false);
+				}
+				
 			}
 		});
 
-		DrawingFunctions myFunctions = new DrawingFunctions();
+		
 		
 		drawB.addMyMouseActivity(new MouseAdapter() {
 		      public void mousePressed(MouseEvent e){
