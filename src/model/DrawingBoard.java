@@ -84,6 +84,10 @@ public class DrawingBoard extends JComponent{
         	{
         		aShape = myFunctions.drawEllipse(drawStart.x, drawStart.y,
                 		drawEnd.x, drawEnd.y);
+        	} else if (currentAction==4)
+        	{
+        		aShape = myFunctions.drawRectangle(drawStart.x, drawStart.y,
+                		drawEnd.x, drawEnd.y);
         	}
         	graphicSettings.draw(aShape);
         	

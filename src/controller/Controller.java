@@ -49,6 +49,15 @@ public class Controller {
 				}
 			}
 		});
+		viewDrawB.addButtonActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource()==viewDrawB.getBtnRectangle()){
+					drawB.setCurrentAction(4);
+				}
+			}
+		});
+		
 		
 		DrawingFunctions myFunctions = new DrawingFunctions();
 		
@@ -77,6 +86,12 @@ public class Controller {
 		    	  else if(drawB.getCurrentAction()==3)
 		    	  {	    		  
                   		aShape = myFunctions.drawEllipse(drawB.getDrawStart().x,
+  		    				  drawB.getDrawStart().y,
+                  				e.getX(), e.getY());        	
+		    	  }
+		    	  else if(drawB.getCurrentAction()==4)
+		    	  {	    		  
+                  		aShape = myFunctions.drawRectangle(drawB.getDrawStart().x,
   		    				  drawB.getDrawStart().y,
                   				e.getX(), e.getY());        	
 		    	  }
