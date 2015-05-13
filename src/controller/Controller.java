@@ -93,7 +93,24 @@ public class Controller {
 					drawB.repaint();
 				}
 				if(e.getSource()==viewDrawB.getBtnSave()){
-					myFunctions.saveImage(drawB.getGraphicSettings(), drawB);
+					
+					
+					 JFileChooser chooser = new JFileChooser();
+					    FileNameExtensionFilter filter = new FileNameExtensionFilter(
+					        "PNG Images", "png");
+					    chooser.setFileFilter(filter);
+					    int returnVal = chooser.showSaveDialog(viewDrawB);
+					    if(returnVal == JFileChooser.APPROVE_OPTION) {
+					    	System.out.println(chooser.getSelectedFile().getPath());
+					    	
+//					       System.out.println("You chose to open this file: " +
+//					            chooser.getSelectedFile().getPath());
+					    	drawB.setSavePath(chooser.getSelectedFile().getPath());
+					    	myFunctions.saveImage(drawB.getSavePath(),drawB.getGraphicSettings(), drawB);
+					    }
+					
+					
+					
 					}
 				if(e.getSource()==viewDrawB.getBtnLoad()){
 					
@@ -105,7 +122,7 @@ public class Controller {
 					    if(returnVal == JFileChooser.APPROVE_OPTION) {
 //					       System.out.println("You chose to open this file: " +
 //					            chooser.getSelectedFile().getPath());
-					    	drawB.setPath(chooser.getSelectedFile().getPath());
+					    	drawB.setOpenPath(chooser.getSelectedFile().getPath());
 					    	 drawB.setLoad(true);
 							 drawB.repaint();
 					    }

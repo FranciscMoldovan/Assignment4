@@ -10,5 +10,4 @@ public interface DrawingFunctionsImpl {
 	Line2D.Float drawLine(int x1, int y1, int x2, int y2);
 	Ellipse2D.Float drawEllipse(int x1, int y1, int x2, int y2);
 	Rectangle2D.Float drawRectangle( int x1, int y1, int x2, int y2);
-	void saveImage(Graphics2D g2, DrawingBoard drawB);
 }

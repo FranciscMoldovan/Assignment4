@@ -30,7 +30,8 @@ public class DrawingBoard extends JComponent{
 	private Point drawStart; 
 	private Point drawEnd;
 	private boolean load = false;
-	private String path;
+	private String savePath;
+	private String openPath;
 	private Graphics2D graphicSettings;
 	private int currentAction=1;
 	@SuppressWarnings("unused")
@@ -69,7 +70,7 @@ public class DrawingBoard extends JComponent{
         {
         	 graphicSettings.setComposite(AlphaComposite.getInstance(
                      AlphaComposite.SRC_OVER, 1));
-	     	Image img1 = Toolkit.getDefaultToolkit().getImage(path);
+	     	Image img1 = Toolkit.getDefaultToolkit().getImage(openPath);
 	        graphicSettings.drawImage(img1, 0, 0, this);
 	        
 	        
@@ -188,12 +189,22 @@ public class DrawingBoard extends JComponent{
 	
 	
 
-	public String getPath() {
-		return path;
+	public String getOpenPath() {
+		return openPath;
 	}
 
-	public void setPath(String path) {
-		this.path = path;
+	public void setOpenPath(String path) {
+		this.openPath = path;
+	}
+
+	
+	
+	public String getSavePath() {
+		return savePath;
+	}
+
+	public void setSavePath(String savePath) {
+		this.savePath = savePath;
 	}
 
 	public boolean isLoad() {

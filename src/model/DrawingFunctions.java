@@ -38,14 +38,14 @@ public class DrawingFunctions implements DrawingFunctionsImpl{
              int height = Math.abs(y1 - y2);
              return new Rectangle2D.Float(x, y, width, height);
      }
-     public void saveImage(Graphics2D g2, DrawingBoard drawB) { 
+     public void saveImage(String path,Graphics2D g2, DrawingBoard drawB) { 
 		 try {
 		        BufferedImage image = new BufferedImage(drawB.getWidth(),
 		                drawB.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
 		        Graphics g = image.getGraphics();
 		        drawB.printAll(g);
 		        g.dispose();
-		        ImageIO.write(image, "png", new File("saves/img.png"));
+		        ImageIO.write(image, "png", new File(path));
 		    } catch (Exception e) {
 		        e.printStackTrace();
 		    }
@@ -62,6 +62,7 @@ public class DrawingFunctions implements DrawingFunctionsImpl{
   		        e.printStackTrace();
   		    }
       }
+
      
   
 }
