@@ -11,8 +11,10 @@ import java.awt.event.MouseMotionAdapter;
 import java.text.DecimalFormat;
 
 import javax.swing.JColorChooser;
+import javax.swing.JFileChooser;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import model.DrawingBoard;
 import model.DrawingFunctions;
@@ -94,8 +96,21 @@ public class Controller {
 					myFunctions.saveImage(drawB.getGraphicSettings(), drawB);
 					}
 				if(e.getSource()==viewDrawB.getBtnLoad()){
-					 drawB.setLoad(true);
-					 drawB.repaint();
+					
+					 JFileChooser chooser = new JFileChooser();
+					    FileNameExtensionFilter filter = new FileNameExtensionFilter(
+					        "PNG Images", "png");
+					    chooser.setFileFilter(filter);
+					    int returnVal = chooser.showOpenDialog(viewDrawB);
+					    if(returnVal == JFileChooser.APPROVE_OPTION) {
+//					       System.out.println("You chose to open this file: " +
+//					            chooser.getSelectedFile().getPath());
+					    	drawB.setPath(chooser.getSelectedFile().getPath());
+					    	 drawB.setLoad(true);
+							 drawB.repaint();
+					    }
+					
+					
 					// drawB.setLoad(false);
 				}
 				
