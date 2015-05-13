@@ -34,6 +34,7 @@ public class Controller {
 			public void stateChanged(ChangeEvent arg0) {
 				if (arg0.getSource()==viewDrawB.getTransparencySlider()){
 					viewDrawB.setTransparencyLabel("Transparent: "+dec.format(viewDrawB.getTransparencySlider().getValue()*.01));
+					transparentVal=(float)(viewDrawB.getTransparencySlider().getValue()*.01);
 				}
 			}
 		});
@@ -42,11 +43,9 @@ public class Controller {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource()==viewDrawB.getBtnBrush()){
 						drawB.setCurrentAction(1);
-						//System.out.println("CRTACC="+currentAction);
 				}
 				if (e.getSource()==viewDrawB.getBtnLine()){
 					drawB.setCurrentAction(2);
-				//System.out.println("CRTACC="+currentAction);
 				}
 				if (e.getSource()==viewDrawB.getBtnEllipse()){
 					drawB.setCurrentAction(3);
@@ -60,6 +59,30 @@ public class Controller {
 				if(e.getSource()==viewDrawB.getBtnFill()){
 					fillColor = JColorChooser.showDialog(null, "Pick a Fill", Color.BLACK);
 				}
+				if(e.getSource()==viewDrawB.getBtnRefresh()){
+					drawB.getShapes().clear();
+					drawB.getShapeFill().clear();
+					drawB.getShapeStroke().clear();
+					drawB.getTransPercent().clear();
+					drawB.repaint();
+					
+				}
+				if(e.getSource()==viewDrawB.getBtnUndo()){
+					if (drawB.getShapes().size()>1 && 
+							drawB.getShapeFill().size()>1 && 
+								drawB.getShapeStroke().size()>1  )
+					{
+						drawB.getShapes().remove(drawB.getShapes().size()-1);
+						drawB.getShapeFill().remove(drawB.getShapes().size()-1);
+						drawB.getShapeStroke().remove(drawB.getShapes().size()-1);
+					} else 
+					{
+						drawB.getShapes().clear();
+						drawB.getShapeFill().clear();
+						drawB.getShapeStroke().clear();
+					}
+					drawB.repaint();
+				}
 			}
 		});
 
@@ -72,7 +95,7 @@ public class Controller {
 		    		  drawB.setDrawStart(new Point(e.getX(), e.getY()));
 		    		  drawB.setDrawEnd(drawB.getDrawStart());
 		    		  drawB.repaint();
-		    		  System.out.println("PRESSED:"+drawB.getDrawStart());
+		    		  //System.out.println("\nPRESSED:"+drawB.getDrawStart());
 		    	  }
 		      }
 		      public void mouseReleased(MouseEvent e){
@@ -108,7 +131,7 @@ public class Controller {
 		    	  drawB.setDrawEnd(null);
 		    	  
 		    	  drawB.repaint();
-		    	  }
+		    	  }		    	  
 		      }
 		});
 		drawB.addMyMotionActivity(new MouseMotionAdapter() {
@@ -125,10 +148,6 @@ public class Controller {
 				drawB.getShapeFill().add(fillColor);
 				drawB.getShapeStroke().add(strokeColor);
 				drawB.getTransPercent().add(transparentVal);
-				
-//				drawB.setDrawStart(null);
-//				drawB.setDrawEnd(null);
-//				drawB.repaint();
 			}
 			drawB.setDrawEnd(new Point(e.getX(),e.getY()));
 			drawB.repaint();

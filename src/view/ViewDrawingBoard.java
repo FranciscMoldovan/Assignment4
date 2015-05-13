@@ -18,7 +18,6 @@ import javax.swing.border.Border;
 import javax.swing.event.ChangeListener;
 
 import model.DrawingBoard;
-import javax.swing.Icon;
 
 public class ViewDrawingBoard extends JFrame{
 	
@@ -42,12 +41,16 @@ public class ViewDrawingBoard extends JFrame{
 	private ImageIcon iconBrush;
 	private ImageIcon iconColor;
 	private ImageIcon iconFill;
+	private ImageIcon iconRefresh;
+	private ImageIcon iconUndo;
 	
 	private JLabel transparencyLabel; 
 	private JSlider transparencySlider;
 	
 	private Box theBox; 
 	private JButton btnFill;
+	private JButton btnRefresh;
+	private JButton btnUndo;
 	
 	
 	
@@ -66,22 +69,18 @@ public class ViewDrawingBoard extends JFrame{
 		
 		setTitle("Paint");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 900, 600);
+		setBounds(70, 70, 1200, 700);
+		setResizable(false);
 		
-		bottomPanel=new JPanel();
-		//bottomPanel.setBounds(383, 543, 115, 19);
-		
-//		contentPane = new JPanel(); 
-//		contentPane.setBorder(new EmptyBorder(5,5,5,5));
-//		setContentPane(contentPane);
-//		contentPane.setLayout(new BorderLayout());
-		
+		 bottomPanel=new JPanel();		
 		 iconLine = new ImageIcon("line.png");
 		 iconEllipse = new ImageIcon("ellipse.png");
 		 iconRectangle = new ImageIcon("rectangle.png");
 		 iconBrush = new ImageIcon("brush.png");
 		 iconColor = new ImageIcon("color.png");
 		 iconFill = new ImageIcon("fill.png");
+		 iconRefresh = new ImageIcon("refresh.png");
+		 iconUndo = new ImageIcon("undo.png");
 		 
 		transparencyLabel=new JLabel("Transparent: 1");
 		transparencySlider=new JSlider(1,99,99);
@@ -110,6 +109,12 @@ public class ViewDrawingBoard extends JFrame{
 		getContentPane().add(myDrawingBoard, BorderLayout.CENTER);
 		
 		theBox = Box.createHorizontalBox();
+		
+		btnUndo = new JButton(iconUndo);
+		theBox.add(btnUndo);
+		
+		btnRefresh = new JButton(iconRefresh);
+		theBox.add(btnRefresh);
 		
 		
 		
@@ -195,6 +200,24 @@ public class ViewDrawingBoard extends JFrame{
 	public void setBtnColor(JButton btnColor) {
 		this.btnColor = btnColor;
 	}
+	
+	
+	
+	public JButton getBtnRefresh() {
+		return btnRefresh;
+	}
+	public void setBtnRefresh(JButton btnRefresh) {
+		this.btnRefresh = btnRefresh;
+	}
+	
+	
+	
+	public JButton getBtnUndo() {
+		return btnUndo;
+	}
+	public void setBtnUndo(JButton btnUndo) {
+		this.btnUndo = btnUndo;
+	}
 	public void addMyChangeListener(ChangeListener listener){
 		transparencySlider.addChangeListener(listener);
 	}
@@ -206,6 +229,8 @@ public class ViewDrawingBoard extends JFrame{
 		btnBrush.addActionListener(listener);
 		btnColor.addActionListener(listener);
 		btnFill.addActionListener(listener);
+		btnRefresh.addActionListener(listener);
+		btnUndo.addActionListener(listener);
 	}
 }
 

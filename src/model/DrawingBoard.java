@@ -10,13 +10,10 @@ import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionAdapter;
-import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import javax.swing.BorderFactory;
 import javax.swing.JComponent;
-import javax.swing.border.Border;
 
 public class DrawingBoard extends JComponent{
 	
@@ -33,6 +30,7 @@ public class DrawingBoard extends JComponent{
 	private Point drawEnd;
 	private Graphics2D graphicSettings;
 	private int currentAction=1;
+	@SuppressWarnings("unused")
 	private float transparencyVal = 1.0f;
 	private DrawingFunctions myFunctions = new DrawingFunctions();
 	public DrawingBoard(){
