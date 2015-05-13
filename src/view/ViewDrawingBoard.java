@@ -1,16 +1,22 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import model.DrawingBoard;
+import javax.swing.JLabel;
+import javax.swing.Icon;
 
 public class ViewDrawingBoard extends JFrame{
 	
@@ -25,15 +31,29 @@ public class ViewDrawingBoard extends JFrame{
 	private JButton btnLine;
 	private JButton btnEllipse;
 	private JButton btnRectangle;
-	
+	private JButton btnBrush;
 	
 	private ImageIcon iconLine;
 	private ImageIcon iconEllipse;
 	private ImageIcon iconRectangle;
+	private ImageIcon iconBrush;
 	
 	private Box theBox; 
 	
+	
+	
 	public ViewDrawingBoard(DrawingBoard myDrawingBoard){
+		
+		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+		Border loweredbevel = BorderFactory.createLoweredBevelBorder();	
+		Border compound = BorderFactory.createCompoundBorder(
+                raisedbevel, loweredbevel);
+		Border redline = BorderFactory.createLineBorder(Color.red);
+		compound = BorderFactory.createCompoundBorder(
+                redline, compound);	
+		((JComponent) this.getContentPane()).setBorder(compound);
+		
+		
 		setTitle("Paint");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 600);
@@ -49,6 +69,7 @@ public class ViewDrawingBoard extends JFrame{
 		 iconLine = new ImageIcon("line.png");
 		 iconEllipse = new ImageIcon("ellipse.png");
 		 iconRectangle = new ImageIcon("rectangle.png");
+		 iconBrush = new ImageIcon("brush.png");
 		
 		btnLine = new JButton(iconLine);
 		btnLine.addActionListener(new ActionListener() {
@@ -67,20 +88,60 @@ public class ViewDrawingBoard extends JFrame{
 		btnRectangle.setBounds(442, 492, 70, 70);
 		//contentPane.add(btnRectangle);
 		
+		btnBrush = new JButton(iconBrush);
+		getContentPane().add(myDrawingBoard, BorderLayout.CENTER);
+		
 		theBox = Box.createHorizontalBox();
+		
+		
+		
 		theBox.add(btnLine);
 		theBox.add(btnEllipse);
 		theBox.add(btnRectangle);
+		theBox.add(btnBrush);
 		bottomPanel.add(theBox);
+		
+		compound = BorderFactory.createCompoundBorder(
+                redline, compound);	
+		
+		bottomPanel.setBorder(compound);
+		
 //		theBox.setSize(100,100);
 //		bottomPanel.setSize(1000,1000);
-		this.add(bottomPanel, BorderLayout.SOUTH);
-		this.add(myDrawingBoard, BorderLayout.CENTER);
+		getContentPane().add(bottomPanel, BorderLayout.SOUTH);
+		
+		
+		
 		}
+	public JButton getBtnLine() {
+		return btnLine;
+	}
+	public void setBtnLine(JButton btnLine) {
+		this.btnLine = btnLine;
+	}
+	public JButton getBtnEllipse() {
+		return btnEllipse;
+	}
+	public void setBtnEllipse(JButton btnEllipse) {
+		this.btnEllipse = btnEllipse;
+	}
+	public JButton getBtnRectangle() {
+		return btnRectangle;
+	}
+	public void setBtnRectangle(JButton btnRectangle) {
+		this.btnRectangle = btnRectangle;
+	}
+	public JButton getBtnBrush() {
+		return btnBrush;
+	}
+	public void setBtnBrush(JButton btnBrush) {
+		this.btnBrush = btnBrush;
+	}
 	public void addButtonActionListener(ActionListener listener){
 		btnLine.addActionListener(listener);
 		btnEllipse.addActionListener(listener);
 		btnRectangle.addActionListener(listener);
+		btnBrush.addActionListener(listener);
 	}
 }
 

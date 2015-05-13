@@ -32,19 +32,9 @@ public class DrawingBoard extends JComponent{
 	private Point drawStart; 
 	private Point drawEnd;
 	private Graphics2D graphicSettings;
-	
+	private int currentAction=1;
+	private DrawingFunctions myFunctions = new DrawingFunctions();
 	public DrawingBoard(){
-		this.setBackground(Color.WHITE);
-		this.setVisible(true);
-		
-		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
-		Border loweredbevel = BorderFactory.createLoweredBevelBorder();	
-		Border compound = BorderFactory.createCompoundBorder(
-                raisedbevel, loweredbevel);
-		Border redline = BorderFactory.createLineBorder(Color.red);
-		compound = BorderFactory.createCompoundBorder(
-                redline, compound);	
-		this.setBorder(compound);
 		
 	}
 	
@@ -86,20 +76,24 @@ public class DrawingBoard extends JComponent{
         	graphicSettings.setPaint(Color.LIGHT_GRAY);
         	Shape aShape = null;
         	
-        	aShape = drawLine(drawStart.x, drawStart.y,
+        	if (currentAction==2)
+        	{
+        	aShape = myFunctions.drawLine(drawStart.x, drawStart.y,
             		drawEnd.x, drawEnd.y);
-        	
+        	} else if (currentAction==3)
+        	{
+        		aShape = myFunctions.drawEllipse(drawStart.x, drawStart.y,
+                		drawEnd.x, drawEnd.y);
+        	}
         	graphicSettings.draw(aShape);
+        	
+        	
+        
+        	
         }
 	}
 	
-	 public Line2D.Float drawLine(
-             int x1, int y1, int x2, int y2)
-     {
 
-             return new Line2D.Float(
-                     x1, y1, x2, y2);
-     }
 	
 	public Point getDrawStart() {
 		return drawStart;
@@ -151,6 +145,16 @@ public class DrawingBoard extends JComponent{
 
 	public void setTransPercent(ArrayList<Float> transPercent) {
 		this.transPercent = transPercent;
+	}
+
+	
+	
+	public int getCurrentAction() {
+		return currentAction;
+	}
+
+	public void setCurrentAction(int currentAction) {
+		this.currentAction = currentAction;
 	}
 
 	public void addMyMouseActivity(MouseAdapter mouse){
