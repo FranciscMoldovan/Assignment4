@@ -66,6 +66,8 @@ public class DrawingBoard extends JComponent{
          
         if (load)
         {
+        	 graphicSettings.setComposite(AlphaComposite.getInstance(
+                     AlphaComposite.SRC_OVER, 1));
 	     	Image img1 = Toolkit.getDefaultToolkit().getImage("saves/img.png");
 	        graphicSettings.drawImage(img1, 0, 0, this);
 	        
@@ -75,6 +77,8 @@ public class DrawingBoard extends JComponent{
 	        	//Sets the shapes transparency value
 	        	 graphicSettings.setComposite(AlphaComposite.getInstance(
 	                        AlphaComposite.SRC_OVER, transPercent.get(i)));
+
+	        	 
 	        	// Grabs the next stroke from the color arraylist
 	         	graphicSettings.setPaint(shapeStroke.get(i)); 
 	         	graphicSettings.draw(shapes.get(i));
